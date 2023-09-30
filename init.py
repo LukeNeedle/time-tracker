@@ -12,10 +12,7 @@ app.secret_key = 'eryUJT3RFE891273Rfrgsgh%^$*(YT9Q3H4T0Q987ERGY9U8&t*&tyg*ogt^g)
 def timer():
     while not stop:
         if (f"{datetime.datetime.now().strftime('%M')}" in ["0","15","30","45"]):
-            print("Yes")
             main.window()
-        else:
-            print("No")
             time.sleep(70)
 
 stop = False
@@ -30,17 +27,16 @@ def index():
     data = json.loads(request.data)
     task = data["task"]
     timestamp = data["timestamp"]
-    print(data)
     cur.execute(f"""INSERT INTO data(task, timestamp) VALUES ('{task}', '{timestamp}');""")
     conn.commit()
     conn.close()
     return "Submitted"
 
-@app.route('/stop', methods=['POST'])
+@app.route('/stop', methods=['POST', 'GET'])
 def stopping():
     global stop
     stop = True
     return "stopped"
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1')
+    app.run(debug=False, host='127.0.0.1')
