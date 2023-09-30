@@ -3,6 +3,8 @@ import sqlite3
 import json
 import threading
 import datetime
+import main
+import time
 
 app = Flask(__name__)
 app.secret_key = 'eryUJT3RFE891273Rfrgsgh%^$*(YT9Q3H4T0Q987ERGY9U8&t*&tyg*ogt^g)()'
@@ -10,8 +12,11 @@ app.secret_key = 'eryUJT3RFE891273Rfrgsgh%^$*(YT9Q3H4T0Q987ERGY9U8&t*&tyg*ogt^g)
 def timer():
     while not stop:
         if (f"{datetime.datetime.now().strftime('%M')}" in ["0","15","30","45"]):
-            pass
-
+            print("Yes")
+            main.window()
+            time.sleep(3600)
+        else:
+            print("No")
 
 stop = False
 t = threading.Thread(target=timer)
@@ -26,12 +31,16 @@ def index():
     task = data["task"]
     timestamp = data["timestamp"]
     print(data)
-    cur.execute(f"""d""")
+    cur.execute(f"""INSERT INTO data(task, timestamp) VALUES ('{task}', '{timestamp}');""")
+    conn.commit()
     conn.close()
     return "Submitted"
 
-def send_ui():
-    import main
+@app.route('/stop', methods=['POST'])
+def stopping():
+    global stop
+    stop = True
+    return "stopped"
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1')
