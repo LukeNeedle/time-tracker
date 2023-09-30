@@ -14,9 +14,9 @@ def timer():
         if (f"{datetime.datetime.now().strftime('%M')}" in ["0","15","30","45"]):
             print("Yes")
             main.window()
-            time.sleep(3600)
         else:
             print("No")
+            time.sleep(70)
 
 stop = False
 t = threading.Thread(target=timer)
