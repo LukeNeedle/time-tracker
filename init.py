@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.secret_key = 'eryUJT3RFE891273Rfrgsgh%^$*(YT9Q3H4T0Q987ERGY9U8&t*&tyg*ogt^g)()'
 
 def timer():
+    main.window()
     while not stop:
         if (f"{datetime.datetime.now().strftime('%M')}" in ["00","15","30","45"]):
             main.window()
